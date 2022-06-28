@@ -2,6 +2,8 @@ import { Todo } from "./Todo";
 
 export default class FalseRestApi {
 
+    static readonly instance: FalseRestApi = new FalseRestApi();
+
     private _todos: Todo[] = [];
 
     private _counter: number = 0;
@@ -11,12 +13,13 @@ export default class FalseRestApi {
         return Promise.resolve(this._todos.map(value => Object.assign({ }, value)));
     }
 
-    createTodo(input: Partial<Todo> = { }) {
+    createTodo(input: Partial<Todo> = { }) : Promise<Todo> {
 
         const todo = Object.assign({ 
             label: "",
             checked: false,
             prio: 1,
+            description: "",
         }, input, { id: this._counter++ });
 
         this._todos.push(todo);
